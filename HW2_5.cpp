@@ -21,18 +21,21 @@ int findKey (int* arr, int start, int end ,int key)
     return -1;
 }
 
-node* fucn (int* arrInorder,int* arrPostOrder,int start , int end)
+node* fucn (int* arrInorder,int* arrPostOrder,int start , int end , int postRoot)
 {
-    cout << "root :" << arrPostOrder[end-1] << '\n';
+    if(start == end)
+        cout << "end\n";
+    
+    cout << "root :" << arrPostOrder[postRoot] << '\n';
 
-    int rootIndex = findKey(arrInorder,start,end,arrPostOrder[end-1]);
+    int inRoot = findKey(arrInorder,start,end,arrPostOrder[postRoot]);
 
     cout << "left: ";
-    For(i,start,rootIndex)
+    For(i,start,inRoot)
         cout << arrInorder[i] << " ";
 
     cout << "\nright: ";
-    For(i,rootIndex+1,end)
+    For(i,inRoot+1,end)
         cout << arrInorder[i] << " ";
 
     return nullptr;
@@ -52,7 +55,7 @@ int main ()
     For(i,0,n) 
         cin >> arrPostOrder[i];
 
-    fucn(arrInorder,arrPostOrder,0,n);
+    fucn(arrInorder,arrPostOrder,0,n,n-1);
 
     return 0;
 }
