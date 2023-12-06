@@ -1,9 +1,8 @@
-//heap sort
-
 #include <iostream>
 
-using namespace std;
+#define For(i,start,end) for(int i {start}; i < end ; ++i)
 
+using namespace std;
 
 struct node
 {
@@ -18,30 +17,43 @@ int findKey (int* arr, int start, int end ,int key)
         if(arr[i] == key)
             return i;
 
-    cerr << "fucckkk key not found\n";
     return -1;
 }
 
-node* fucn (int* arrInorder,int* arrPostOrder,int start , int end)
+node* fucn (int* arrInorder,int* arrLevel,int size)
 {
-    cout << "root :" << arrPostOrder[end-1] << '\n';
+    cout << "           " << arrLevel[0] << '\n';
+    cout << "      /           \\     \n";
+    cout << "     /             \\     \n";
 
-    int rootIndex = findKey(arrInorder,start,end,arrPostOrder[end-1]);
+    int rootIndex = findKey(arrInorder,0,size,arrLevel[0]);
 
-    cout << "left: ";
-    For(i,start,rootIndex)
+    cout << "{";
+    For(i,0,rootIndex)
+        cout << arrInorder[i] << " ";
+    cout << "}";
+    cout << "\t { ";
+    For(i,rootIndex+1,size)
         cout << arrInorder[i] << " ";
 
-    cout << "\nright: ";
-    For(i,rootIndex+1,end)
-        cout << arrInorder[i] << " ";
+    cout << "}";
 
     return nullptr;
 }
 
 int main ()
 {
+    int n {};
+    cin >> n;
+    int arrIn[n] {} , arrLevel[n] {};
 
+    For(i,0,n)
+        cin >> arrIn[i];
 
-    retrun 0;
+     For(i,0,n)
+        cin >> arrLevel[i];
+
+    fucn(arrIn,arrLevel,n);
+
+    return 0;
 }
