@@ -12,25 +12,27 @@ struct node
     node* left {nullptr};
     node* right {nullptr};
 };
+node* creatTree(vector<int> arrInorder,vector<int>arrPostOrder);
 
+void dfsPre();
 class MyTree 
 {
     public:
 
-        MyTree();
-        node* creatTree(vector<int> , vector<int>);
+        MyTree(vector<int> , vector<int>);
   
+        node* root {nullptr};
     private:
 
-        node* root {nullptr};
     
-
 };
 
-MyTree::MyTree()
-{}
+MyTree::MyTree(vector<int> arrInorder,vector<int>arrPostOrder)
+{
+    root = creatTree(arrInorder,arrPostOrder);
+}
 
-node* MyTree::creatTree(vector<int> arrInorder,vector<int>arrPostOrder)
+node* creatTree(vector<int> arrInorder,vector<int>arrPostOrder)
 {
     if(arrInorder.size() < 1)
         return nullptr;
@@ -49,13 +51,15 @@ node* MyTree::creatTree(vector<int> arrInorder,vector<int>arrPostOrder)
        tempPos.push_back(arrPostOrder[i]);
     }
 
-    for(auto i:tempIn)
-        cout << i << " ";
-    cout << '\n';
-    for(auto i:tempPos)
-        cout << i << " ";
-    cout << '\n';
-    cout << '\n';
+    // for(auto i:tempIn)
+    //     cout << i << " ";
+    // cout << '\n';
+    // for(auto i:tempPos)
+    //     cout << i << " ";
+    // cout << '\n';
+    // cout << '\n';
+
+    root->left = creatTree(tempIn,tempPos);
 
     vector<int> tempIn2 ;
     vector<int> tempPos2;
@@ -66,17 +70,17 @@ node* MyTree::creatTree(vector<int> arrInorder,vector<int>arrPostOrder)
     }
 
 
-    for(auto i:tempIn2)
-        cout << i << " ";
-    cout << '\n';
-    for(auto i:tempPos2)
-        cout << i << " ";
-    cout << '\n';
-    cout << '\n';
+    // for(auto i:tempIn2)
+    //     cout << i << " ";
+    // cout << '\n';
+    // for(auto i:tempPos2)
+    //     cout << i << " ";
+    // cout << '\n';
+    // cout << '\n';
 
-
-
-    return nullptr;
+    root->right = creatTree(tempIn2,tempPos2);
+    
+    return root;
 }
 
 int findKey (vector<int> vec , int key)
@@ -89,7 +93,16 @@ int findKey (vector<int> vec , int key)
     return -1;
 }
 
+void dfsPre(node* root)
+{
+    if(root == nullptr)
+        return;
 
+    cout << root->data << " ";
+    dfsPre(root->left);
+    dfsPre(root->right);
+}
+  
 
 
 
@@ -105,9 +118,8 @@ int main ()
     For(i,0,n) 
         cin >> arrPostOrder[i];
 
-    MyTree tree;
-
-    tree.creatTree(arrInorder,arrPostOrder);
+    MyTree tree(arrInorder,arrPostOrder);
+    dfsPre(tree.root);
 
     return 0;
 }
