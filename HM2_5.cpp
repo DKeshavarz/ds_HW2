@@ -20,11 +20,7 @@ class MyTree
     public:
 
         MyTree(vector<int> , vector<int>);
-  
-        node* root {nullptr};
-    private:
-
-    
+        node* root {nullptr}  ;
 };
 
 MyTree::MyTree(vector<int> arrInorder,vector<int>arrPostOrder)
@@ -102,6 +98,18 @@ void dfsPre(node* root)
     dfsPre(root->left);
     dfsPre(root->right);
 }
+int distanc {};
+int maxDis(node* root)
+{
+    if(root == nullptr)
+        return 0;
+
+    int leftDis  = maxDis(root->left) + 1;
+    int rightDis = maxDis(root->right) + 1;
+
+    distanc = max(distanc,leftDis + rightDis);
+    return max(rightDis , leftDis);
+}
   
 
 
@@ -119,7 +127,10 @@ int main ()
         cin >> arrPostOrder[i];
 
     MyTree tree(arrInorder,arrPostOrder);
-    dfsPre(tree.root);
+    //dfsPre(tree.root);
+    maxDis(tree.root);
+
+    cout << distanc - 1 << '\n';
 
     return 0;
 }
