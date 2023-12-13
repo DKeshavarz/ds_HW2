@@ -1,9 +1,11 @@
 #include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
 
 #define For(i,start,end) for(int i {start}; i < end ; ++i)
 
 using namespace std;
-
 struct node
 {
     int data {};
@@ -41,17 +43,34 @@ node* fucn (int* arrInorder,int* arrLevel,int size)
     return nullptr;
 }
 
+vector <int> mySplit (string s)
+{
+    stringstream ss(s);  
+    vector<int> vec;
+    string word;
+    while (ss >> word) 
+    { 
+       vec.push_back(stoi(word));
+    }
+    return vec;
+}
 int main ()
 {
-    int n {};
-    cin >> n;
+    string str1,str2 ;
+    getline(cin , str1);
+    getline(cin , str2);
+   
+    vector<int> vec = mySplit(str1);
+    int n {vec.size()};
     int arrIn[n] {} , arrLevel[n] {};
 
     For(i,0,n)
-        cin >> arrIn[i];
+        arrIn[i] = vec[i];
 
-     For(i,0,n)
-        cin >> arrLevel[i];
+    vec = mySplit(str2);
+
+    For(i,0,n)
+        arrLevel[i] = vec[i];
 
     fucn(arrIn,arrLevel,n);
 
