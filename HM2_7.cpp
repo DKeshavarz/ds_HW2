@@ -38,34 +38,9 @@ class MyTree
 
 
 };
+
 using namespace std;
-bool MyTree::contionTree(MyTree input)
-{
-    stack<Node*> myStack ;
-    findKeys(myStack,input.getRoot()->getData(), root);
 
-    string dfs = dfsFrom(input.getRoot());
-    while(myStack.size() > 0)
-    {
-        Node* front {myStack.top()};
-        
-        if(dfsFrom(front) == dfs)
-            return true;
-
-        myStack.pop();
-    }
-
-    return false;
-}
-void MyTree::findKeys(stack<Node*>& myStack, int key , Node* root)
-{
-    if(!root) return ;
-
-    if(root->getData() == key) myStack.push(root);
-
-    findKeys(myStack,key,root->leftChild ());
-    findKeys(myStack,key,root->rightChild());
-}
 int main ()
 {
     Node a6 (6) , a30(30) ;
@@ -91,6 +66,9 @@ int main ()
 
     return 0;
 }
+
+
+
 
 //start class Node function..................................
 Node::Node(int d ,Node* l,Node* r):data(d),left(l),right(r)
@@ -137,5 +115,32 @@ string MyTree::dfsFrom(Node *root)
            << dfsFrom(root->rightChild()) << " ";
 
     return output.str();
+}
+bool MyTree::contionTree(MyTree input)
+{
+    stack<Node*> myStack ;
+    findKeys(myStack,input.getRoot()->getData(), root);
+
+    string dfs = dfsFrom(input.getRoot());
+    while(myStack.size() > 0)
+    {
+        Node* front {myStack.top()};
+        
+        if(dfsFrom(front) == dfs)
+            return true;
+
+        myStack.pop();
+    }
+
+    return false;
+}
+void MyTree::findKeys(stack<Node*>& myStack, int key , Node* root)
+{
+    if(!root) return ;
+
+    if(root->getData() == key) myStack.push(root);
+
+    findKeys(myStack,key,root->leftChild ());
+    findKeys(myStack,key,root->rightChild());
 }
 //end class MyTree functions..................................
